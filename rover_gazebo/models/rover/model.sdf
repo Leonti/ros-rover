@@ -2,7 +2,7 @@
 <sdf version='1.6'>
   <model name='rover'>
     <link name='chassis'>
-      <pose frame=''>0 -0 0.07 0 -0 0</pose>
+      <pose frame=''>-0 0 0.07 0 -0 0</pose>
       <inertial>
         <mass>1.14395</mass>
         <inertia>
@@ -54,7 +54,7 @@
       <visual name='visual'>
         <geometry>
           <box>
-            <size>0.2 0.15 0.08</size>
+            <size>0.3 0.15 0.08</size>
           </box>
         </geometry>
         <material>
@@ -80,7 +80,7 @@
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <box>
-            <size>0.2 0.15 0.08</size>
+            <size>0.3 0.15 0.08</size>
           </box>
         </geometry>
         <surface>
@@ -115,7 +115,7 @@
               <soft_erp>0.2</soft_erp>
               <kp>1e+13</kp>
               <kd>1</kd>
-              <max_vel>0.01</max_vel>
+              <max_vel>0</max_vel>
               <min_depth>0</min_depth>
             </ode>
             <bullet>
@@ -131,7 +131,7 @@
       </collision>
     </link>
     <link name='caster'>
-      <pose frame=''>-0.07 -0 0.017 0 -0 0</pose>
+      <pose frame=''>-0.15 -0 0.017 0 -0 0</pose>
       <inertial>
         <mass>1</mass>
         <inertia>
@@ -212,7 +212,7 @@
               <soft_erp>0.2</soft_erp>
               <kp>1e+13</kp>
               <kd>1</kd>
-              <max_vel>0.01</max_vel>
+              <max_vel>0</max_vel>
               <min_depth>0</min_depth>
             </ode>
             <bullet>
@@ -228,7 +228,7 @@
       </collision>
     </link>
     <link name='left_wheel'>
-      <pose frame=''>0.02 0.09 0.034 -1.5707 0 0</pose>
+      <pose frame=''>0.13 0.09 0.034 -1.5707 -0 -0</pose>
       <inertial>
         <mass>2</mass>
         <inertia>
@@ -311,8 +311,8 @@
               <soft_erp>0.2</soft_erp>
               <kp>1e+13</kp>
               <kd>1</kd>
-              <max_vel>0.01</max_vel>
-              <min_depth>0.01</min_depth>
+              <max_vel>0</max_vel>
+              <min_depth>0</min_depth>
             </ode>
             <bullet>
               <split_impulse>1</split_impulse>
@@ -327,7 +327,7 @@
       </collision>
     </link>
     <link name='right_wheel'>
-      <pose frame=''>0.02 -0.09 0.034 -1.5707 0 0</pose>
+      <pose frame=''>0.13 -0.09 0.034 -1.5707 -0 -0</pose>
       <inertial>
         <mass>2</mass>
         <inertia>
@@ -410,8 +410,8 @@
               <soft_erp>0.2</soft_erp>
               <kp>1e+13</kp>
               <kd>1</kd>
-              <max_vel>0.01</max_vel>
-              <min_depth>0.01</min_depth>
+              <max_vel>0</max_vel>
+              <min_depth>0</min_depth>
             </ode>
             <bullet>
               <split_impulse>1</split_impulse>

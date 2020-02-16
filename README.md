@@ -29,10 +29,16 @@ Install instructions for Ubuntu Bionic.
 
         ros2 launch rover_gazebo rover.launch.py world:=rover_room.world
 
+3. Install `teleop_twist_keyboard` https://github.com/ros2/teleop_twist_keyboard and 
+use `from rclpy.qos import qos_profile_services_default`, modify topic to be `/rover/cmd_vel` and run with 
+
+        ros2 run teleop_twist_keyboard teleop_twist_keyboard
+
 3. In `slam_toolbox` worspace run:
  
         . /home/leonti/ros2_eloquent/install/setup.bash
         . /home/leonti/slam_ws/install/setup.bash
+        
 4. Launch `slam_toolbox`:
         ros2 launch slam_toolbox online_async_launch.py
 
