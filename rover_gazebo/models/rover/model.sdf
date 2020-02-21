@@ -23,7 +23,7 @@
               <samples>560</samples>
               <resolution>1</resolution>
               <min_angle>-3.14159</min_angle>
-              <max_angle>3.14159</max_angle>
+              <max_angle>3.139</max_angle>
             </horizontal>
             <vertical>
               <samples>1</samples>
@@ -37,7 +37,7 @@
           </range>
         </ray>
         <always_on>1</always_on>
-        <visualize>1</visualize>
+        <visualize>0</visualize>
         <update_rate>100</update_rate>
         <plugin name='laser' filename='libgazebo_ros_ray_sensor.so'>
           <ros>
@@ -183,11 +183,11 @@
         <surface>
           <friction>
             <ode>
-              <mu>1</mu>
-              <mu2>1</mu2>
+              <mu>0</mu>
+              <mu2>0</mu2>
               <fdir1>0 0 0</fdir1>
-              <slip1>0</slip1>
-              <slip2>0</slip2>
+              <slip1>1</slip1>
+              <slip2>1</slip2>
             </ode>
             <torsional>
               <coefficient>1</coefficient>
@@ -518,8 +518,8 @@
       </ros>
       <left_joint>left_wheel_joint</left_joint>
       <right_joint>right_wheel_joint</right_joint>
-      <wheel_separation>1.25</wheel_separation>
-      <wheel_diameter>0.6</wheel_diameter>
+      <wheel_separation>0.15</wheel_separation>
+      <wheel_diameter>0.06</wheel_diameter>
       <max_wheel_torque>20</max_wheel_torque>
       <max_wheel_acceleration>1.0</max_wheel_acceleration>
       <publish_odom>1</publish_odom>

@@ -1,5 +1,3 @@
-"""Launch Gazebo with a world that has rover, as well as the follow node."""
-
 import os
 
 from ament_index_python.packages import get_package_share_directory
@@ -32,6 +30,16 @@ def generate_launch_description():
         condition=IfCondition(LaunchConfiguration('rviz'))
     )
 
+    slam = Node(
+        parameters=[
+            get_package_share_directory("rover") + '/config/slam.yaml'
+        ],
+        package='slam_toolbox',
+        node_executable='sync_slam_toolbox_node',
+        name='slam_toolbox',
+        output='screen'
+    )
+
     return LaunchDescription([
         DeclareLaunchArgument(
           'world',
@@ -40,5 +48,6 @@ def generate_launch_description():
         DeclareLaunchArgument('rviz', default_value='true',
                               description='Open RViz.'),
         gazebo,
-        rviz
+        rviz,
+        slam
     ])

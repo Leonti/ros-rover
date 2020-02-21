@@ -24,6 +24,7 @@ Install instructions for Ubuntu Bionic.
         . /usr/share/gazebo/setup.sh
         . /home/leonti/ros2_eloquent/install/setup.bash
         . /home/leonti/development/ros2_tutorial/install/setup.bash
+        . /home/leonti/slam_ws/install/setup.bash
 
 2. Launch rover:
 
