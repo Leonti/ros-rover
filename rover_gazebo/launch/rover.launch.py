@@ -32,7 +32,8 @@ def generate_launch_description():
 
     slam = Node(
         parameters=[
-            get_package_share_directory("rover") + '/config/slam.yaml'
+            get_package_share_directory("rover") + '/config/slam.yaml',
+            {'use_sim_time': True},
         ],
         package='slam_toolbox',
         node_executable='sync_slam_toolbox_node',

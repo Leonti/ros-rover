@@ -25,6 +25,7 @@ Install instructions for Ubuntu Bionic.
         . /home/leonti/ros2_eloquent/install/setup.bash
         . /home/leonti/development/ros2_tutorial/install/setup.bash
         . /home/leonti/slam_ws/install/setup.bash
+        . /home/leonti/navigation2_ws/install/setup.bash
 
 2. Launch rover:
 
@@ -42,6 +43,14 @@ use `from rclpy.qos import qos_profile_services_default`, modify topic to be `/r
         
 4. Launch `slam_toolbox`:
         ros2 launch slam_toolbox online_async_launch.py
+
+
+Launch navigation:  
+        cd . /home/leonti/navigation2_ws
+        . /home/leonti/navigation2_ws/install/setup.bash  
+        ros2 launch nav2_bringup nav2_navigation_launch.py
+
+ros2 run tf2_tools view_frames.py
 
 
 ## Credits
