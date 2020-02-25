@@ -1,7 +1,7 @@
 <?xml version='1.0'?>
 <sdf version='1.6'>
   <model name='rover'>
-    <link name='chassis'>
+    <link name='base_link'>
       <pose frame=''>-0 0 0.07 0 -0 0</pose>
       <inertial>
         <mass>1.14395</mass>
@@ -41,8 +41,8 @@
         <update_rate>100</update_rate>
         <plugin name='laser' filename='libgazebo_ros_ray_sensor.so'>
           <ros>
-            <namespace>/rover</namespace>
-            <remapping>~/out:=laser_scan</remapping>
+            <namespace>/</namespace>
+            <remapping>~/out:=scan</remapping>
           </ros>
           <output_type>sensor_msgs/LaserScan</output_type>
         </plugin>
@@ -62,7 +62,7 @@
             <normal_map>__default__</normal_map>
           </shader>
           <script>
-            <name>ModelPreview_1::chassis::visual_MATERIAL_</name>
+            <name>ModelPreview_1::base_link::visual_MATERIAL_</name>
             <uri>__default__</uri>
           </script>
           <ambient>0.451 0.824 0.086 1</ambient>
@@ -426,7 +426,7 @@
       </collision>
     </link>
     <joint name='caster_wheel' type='ball'>
-      <parent>chassis</parent>
+      <parent>base_link</parent>
       <child>caster</child>
       <pose frame=''>0 0 0 0 -0 0</pose>
       <physics>
@@ -443,7 +443,7 @@
       </physics>
     </joint>
     <joint name='left_wheel_joint' type='revolute'>
-      <parent>chassis</parent>
+      <parent>base_link</parent>
       <child>left_wheel</child>
       <pose frame=''>0 0 0 0 -0 0</pose>
       <axis>
@@ -476,7 +476,7 @@
       </physics>
     </joint>
     <joint name='right_wheel_joint' type='revolute'>
-      <parent>chassis</parent>
+      <parent>base_link</parent>
       <child>right_wheel</child>
       <pose frame=''>0 0 0 0 -0 0</pose>
       <axis>
@@ -512,7 +512,7 @@
     <allow_auto_disable>1</allow_auto_disable>
     <plugin name='diff_drive' filename='libgazebo_ros_diff_drive.so'>
       <ros>
-        <namespace>/rover</namespace>
+        <namespace>/</namespace>
         <remapping>cmd_vel:=cmd_vel</remapping>
         <remapping>odom:=odom</remapping>
       </ros>
@@ -526,7 +526,7 @@
       <publish_odom_tf>1</publish_odom_tf>
       <publish_wheel_tf>1</publish_wheel_tf>
       <odometry_frame>odom</odometry_frame>
-      <robot_base_frame>chassis</robot_base_frame>
+      <robot_base_frame>base_link</robot_base_frame>
     </plugin>
   </model>
 </sdf>

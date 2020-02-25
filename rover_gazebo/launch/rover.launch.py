@@ -32,11 +32,12 @@ def generate_launch_description():
 
     slam = Node(
         parameters=[
-            get_package_share_directory("rover") + '/config/slam.yaml',
-            {'use_sim_time': True},
+            get_package_share_directory("rover") + '/config/slam.yaml'
         ],
         package='slam_toolbox',
         node_executable='sync_slam_toolbox_node',
+        #prefix=['gdb -ex=r --args'],
+#        prefix=['valgrind'],
         name='slam_toolbox',
         output='screen'
     )
