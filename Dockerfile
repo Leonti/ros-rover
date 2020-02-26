@@ -1,7 +1,9 @@
 FROM balenalib/raspberrypi3-ubuntu:bionic-build
 
-RUN locale-gen en_US en_US.UTF-8
-RUN update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
+RUN apt-get clean && apt-get update && apt-get install -y locales \
+  && locale-gen en_US en_US.UTF-8 \
+  && update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
+
 ENV LANG en_US.UTF-8
 
 RUN apt update && sudo apt install curl gnupg2 lsb-release 
