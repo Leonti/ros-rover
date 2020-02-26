@@ -11,7 +11,5 @@ RUN apt update && sudo apt install -y curl gnupg2 lsb-release
 RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add - \
   && echo "deb [arch=armhf] http://packages.ros.org/ros2/ubuntu `lsb_release -cs` main" > /etc/apt/sources.list.d/ros2-latest.list \
   && apt update \
-  && DEBIAN_FRONTEND=noninteractive apt install -y ros-eloquent-ros-base
-
-RUN apt update \
-  && apt install -y ros-eloquent-slam-toolbox ros-eloquent-navigation2 ros-eloquent-nav2-bringup
+  && DEBIAN_FRONTEND=noninteractive apt install -y ros-dashing-ros-base \
+  ros-dashing-slam-toolbox ros-dashing-navigation2 ros-dashing-nav2-bringup
