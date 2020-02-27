@@ -13,3 +13,10 @@ RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt
   && apt update \
   && DEBIAN_FRONTEND=noninteractive apt install -y ros-dashing-ros-base \
   ros-dashing-slam-toolbox ros-dashing-navigation2 ros-dashing-nav2-bringup
+
+RUN apt update && sudo apt install -y git
+RUN git clone git@github.com:youtalk/rplidar_ros.git
+
+RUN cd rplidar_ros \
+  && git checkout dashing \
+  && colcon build
