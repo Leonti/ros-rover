@@ -15,7 +15,12 @@ RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt
   ros-dashing-slam-toolbox ros-dashing-navigation2 ros-dashing-nav2-bringup
 
 RUN apt update && sudo apt install -y git python3-colcon-common-extensions
-RUN git clone https://github.com/youtalk/rplidar_ros.git
 
-RUN cd rplidar_ros \
-  && /bin/bash -c "source /opt/ros/dashing/setup.bash; git checkout dashing; colcon build"
+WORKDIR /ws
+RUN mkrdir src
+RUN git clone https://github.com/youtalk/rplidar_ros.git src/rplidar_ros \
+  && git checkout dashing
+
+COPY rover src/rover
+
+RUN /bin/bash -c "source /opt/ros/dashing/setup.bash; colcon build"
