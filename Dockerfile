@@ -19,7 +19,9 @@ RUN apt update && sudo apt install -y git python3-colcon-common-extensions
 WORKDIR /ws
 RUN mkdir src
 RUN git clone https://github.com/youtalk/rplidar_ros.git src/rplidar_ros \
-  && git checkout dashing
+  && cd src/rplidar_ros \
+  && git checkout dashing \
+  && cd ../../
 
 COPY rover src/rover
 
