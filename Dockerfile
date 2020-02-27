@@ -17,7 +17,7 @@ RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt
 RUN apt update && sudo apt install -y git python3-colcon-common-extensions
 
 WORKDIR /ws
-RUN mkrdir src
+RUN mkdir src
 RUN git clone https://github.com/youtalk/rplidar_ros.git src/rplidar_ros \
   && git checkout dashing
 
