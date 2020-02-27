@@ -26,5 +26,3 @@ RUN git clone https://github.com/youtalk/rplidar_ros.git src/rplidar_ros \
 COPY rover src/rover
 
 RUN /bin/bash -c "source /opt/ros/dashing/setup.bash; colcon build"
-
-RUN ls -laR
