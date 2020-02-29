@@ -27,4 +27,4 @@ COPY rover src/rover
 
 RUN /bin/bash -c "source /opt/ros/dashing/setup.bash; colcon build"
 
-CMD /bin/bash -c "source /opt/ros/dashing/setup.bash; source ./install/setup.bash; ros2 launch rover rover.py"
+CMD /bin/bash -c "source /opt/ros/dashing/setup.bash; source ./install/setup.bash; ROS_DOMAIN_ID=45 ros2 launch rover rover.py"
