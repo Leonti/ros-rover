@@ -18,7 +18,7 @@ RUN apt update && sudo apt install -y git python3-colcon-common-extensions
 
 WORKDIR /ws
 RUN mkdir src
-RUN git clone https://github.com/youtalk/rplidar_ros.git src/rplidar_ros \
+RUN git clone https://github.com/Leonti/rplidar_ros.git src/rplidar_ros \
   && cd src/rplidar_ros \
   && git checkout dashing \
   && cd ../../
@@ -26,3 +26,5 @@ RUN git clone https://github.com/youtalk/rplidar_ros.git src/rplidar_ros \
 COPY rover src/rover
 
 RUN /bin/bash -c "source /opt/ros/dashing/setup.bash; colcon build"
+
+CMD /bin/bash -c "source /opt/ros/dashing/setup.bash; ros2 launch rover rover.py"

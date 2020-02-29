@@ -57,6 +57,18 @@ To debug TF:
 ros2 run tf2_tools view_frames.py
 ```
 
+To start with real lidar:
+
+```bash
+ros2 launch rover rover.py
+```
+
+To build a single package:
+
+```bash
+colcon build --symlink-install --packages-select rplidar_ros
+```
+
 ### Navigation tutorial
 
 ```bash
