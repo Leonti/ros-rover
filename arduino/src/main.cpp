@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <Wire.h>
+#include <PID_v1.h>
 
 void receiveEvent(int howMany) {
   while(Wire.available()) {
