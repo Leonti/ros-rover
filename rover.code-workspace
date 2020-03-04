@@ -1,11 +1,10 @@
 {
 	"folders": [
 		{
-			"path": "ros-rover"
+			"path": "."
 		},
 		{
-			"name": "arduino",
-			"path": "ros-rover/arduino"
+			"path": "arduino"
 		}
 	],
 	"settings": {}
