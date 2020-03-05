@@ -84,6 +84,19 @@ void setup() {
   PID_rightMotor.SetMode(AUTOMATIC);
 
 
+/*
+  pinMode (LEFT_ENCODER_PIN, INPUT_PULLUP);
+  pinMode (RIGHT_ENCODER_PIN, INPUT_PULLUP);
+
+//  digitalWrite(LEFT_ENCODER_PIN, HIGH);
+//  digitalWrite(RIGHT_ENCODER_PIN, HIGH);
+// pulse detection interrupt (pulse channel - IRQ3 pin20)
+
+  attachInterrupt(0, onLeftPulse, FALLING);
+  attachInterrupt(1, onRightPulse, FALLING);
+
+*/
+
   // Define the rotary encoder for left motor
   pinMode(PIN_ENCOD_A_MOTOR_LEFT, INPUT); 
   pinMode(PIN_ENCOD_B_MOTOR_LEFT, INPUT); 
