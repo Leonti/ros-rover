@@ -62,6 +62,10 @@ void receiveEvent(int howMany) {
   }
 }
 
+void requestEvent() {
+  Wire.write(1);
+}
+
 //Left motor encoder counter
 void encoderLeftMotor() {
   if (digitalRead(PIN_ENCOD_A_MOTOR_LEFT) == digitalRead(PIN_ENCOD_B_MOTOR_LEFT)) pos_left++;
@@ -113,6 +117,9 @@ void setup() {
 
   Wire.begin(4);
   Wire.onReceive(receiveEvent);
+  Wire.onRequest(requestEvent);
+
+  Serial.begin(9600);
 }
 
 template <typename T> int sgn(T val) {
