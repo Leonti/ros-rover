@@ -19,6 +19,7 @@ def generate_launch_description():
         package='slam_toolbox',
         node_executable='async_slam_toolbox_node',
         name='slam_toolbox',
+#        emulate_tty=True,
         output='screen'
     )
 
@@ -30,9 +31,19 @@ def generate_launch_description():
         node_executable='rplidar_node',
         name='rplidar',
         node_name='rplidar',
+#        emulate_tty=True,
         output='screen'
     )    
 
+    arduino_bridge = Node(
+        package='arduino_bridge',
+        node_executable='arduino_bridge',
+        name='arduino_bridge',
+#        emulate_tty=True,
+        output='screen'
+    ) 
+
     return LaunchDescription([
-        lidar
+#        lidar,
+        arduino_bridge
     ])

@@ -24,6 +24,7 @@ RUN git clone https://github.com/Leonti/rplidar_ros.git src/rplidar_ros \
   && cd ../../
 
 COPY rover src/rover
+COPY arduino_bridge src/arduino_bridge
 
 RUN /bin/bash -c "source /opt/ros/dashing/setup.bash; colcon build"
 

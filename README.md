@@ -18,6 +18,7 @@ Install instructions for Ubuntu 19.10.
 2. Build and install:
 
         cd ~/ws
+        . ~/ros2_dashing/install/setup.bash
         colcon build --symlink-install
 
 ## Run
@@ -25,7 +26,7 @@ Install instructions for Ubuntu 19.10.
 1. Setup environment variables:
 ```bash
 . /usr/share/gazebo/setup.sh
-. ~/ros2_eloquent/install/setup.bash
+. ~/ros2_dashing/install/setup.bash
 . ~/development/ros2_tutorial/install/setup.bash
 . ~/slam_ws/install/setup.bash
 . ~/navigation2_ws/install/setup.bash
