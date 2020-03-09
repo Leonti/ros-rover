@@ -44,6 +44,6 @@ def generate_launch_description():
     ) 
 
     return LaunchDescription([
-#        lidar,
+        lidar,
         arduino_bridge
     ])
