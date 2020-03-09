@@ -6,6 +6,7 @@ from rclpy.qos import qos_profile_services_default
 
 import serial
 import threading
+import time
 
 class TwistSubscriber(Node):
 
@@ -26,18 +27,25 @@ class TwistSubscriber(Node):
       self.get_logger().error("Can't process 'y' speen - the robot - non-holonomic")
     self.get_logger().warn('linear: "%f", angular "%f"' % (linear, angular))
     linear_mm_sec = linear * 1000
-    self.ser.write('S{:f} {:f}'.format(linear_mm_sec, angular).encode())
+    self.ser.write('S{:f} {:f} '.format(linear_mm_sec, angular).encode(encoding = 'ascii'))
+    self.ser.flush()
 
-def serial_reader(ser):
-    print("Reading serial")
-    return
+def serial_reader(node, ser):
+    node.get_logger().warn("Reading serial")
+#    while True:
+#      bytesToRead = ser.inWaiting()
+#      if bytesToRead > 0:
+#        line = ser.readline()
+#        node.get_logger().warn(str(line, 'ascii'))
+#      time.sleep(.001)
 
 def main(args=None):
   rclpy.init(args=args)
 
-  with serial.Serial('/dev/ttyUSB0') as ser:
+  with serial.Serial('/dev/ttyUSB0', timeout=1) as ser:
     twist_subscriber = TwistSubscriber(ser)
-    t = threading.Thread(target=serial_reader, args=(ser,))
+    t = threading.Thread(target=serial_reader, args=(twist_subscriber, ser,))
+    t.start()
     rclpy.spin(twist_subscriber)
     twist_subscriber.destroy_node()
     rclpy.shutdown()
