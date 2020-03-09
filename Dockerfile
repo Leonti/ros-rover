@@ -25,6 +25,8 @@ RUN git clone https://github.com/Leonti/rplidar_ros.git src/rplidar_ros \
 
 COPY rover src/rover
 COPY arduino-bridge src/arduino-bridge
+COPY 99-usb-serial.rules /etc/udev/rules.d/
+ENV UDEV=1
 
 RUN pip3 install -r src/arduino-bridge/requirements.txt
 
