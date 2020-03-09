@@ -14,7 +14,7 @@ RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt
   && DEBIAN_FRONTEND=noninteractive apt install -y ros-dashing-ros-base \
   ros-dashing-slam-toolbox ros-dashing-navigation2 ros-dashing-nav2-bringup
 
-RUN apt update && sudo apt install -y git python3-colcon-common-extensions
+RUN apt update && sudo apt install -y git python3-colcon-common-extensions python3-pip
 
 WORKDIR /ws
 RUN mkdir src
