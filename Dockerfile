@@ -26,6 +26,8 @@ RUN git clone https://github.com/Leonti/rplidar_ros.git src/rplidar_ros \
 COPY rover src/rover
 COPY arduino-bridge src/arduino-bridge
 
+RUN pip install -r src/arduino-bridge/requirements.txt
+
 RUN /bin/bash -c "source /opt/ros/dashing/setup.bash; colcon build"
 
 CMD /bin/bash -c "source /opt/ros/dashing/setup.bash; source ./install/setup.bash; ROS_DOMAIN_ID=45 ros2 launch rover rover.py"
