@@ -1,0 +1,8 @@
+README.md
+arduino_bridge.egg-info/PKG-INFO
+arduino_bridge.egg-info/SOURCES.txt
+arduino_bridge.egg-info/dependency_links.txt
+arduino_bridge.egg-info/entry_points.txt
+arduino_bridge.egg-info/requires.txt
+arduino_bridge.egg-info/top_level.txt
+arduino_bridge.egg-info/zip-safe
