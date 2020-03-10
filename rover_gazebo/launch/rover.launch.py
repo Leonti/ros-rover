@@ -49,7 +49,7 @@ def generate_launch_description():
           description='SDF world file'),
         DeclareLaunchArgument('rviz', default_value='true',
                               description='Open RViz.'),
-        gazebo,
+#        gazebo,
         rviz,
         slam
     ])

@@ -11,8 +11,8 @@ RUN apt update && sudo apt install -y curl gnupg2 lsb-release
 RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add - \
   && echo "deb [arch=armhf] http://packages.ros.org/ros2/ubuntu `lsb_release -cs` main" > /etc/apt/sources.list.d/ros2-latest.list \
   && apt update \
-  && DEBIAN_FRONTEND=noninteractive apt install -y ros-dashing-ros-base \
-  ros-dashing-slam-toolbox ros-dashing-navigation2 ros-dashing-nav2-bringup
+  && DEBIAN_FRONTEND=noninteractive apt install -y ros-eloquent-ros-base \
+  ros-eloquent-navigation2 ros-eloquent-nav2-bringup
 
 RUN apt update && sudo apt install -y git python3-colcon-common-extensions python3-pip
 
@@ -23,13 +23,15 @@ RUN git clone https://github.com/Leonti/rplidar_ros.git src/rplidar_ros \
   && git checkout dashing \
   && cd ../../
 
+
+COPY arduino-bridge/requirements.txt src/arduino-bridge/requirements.txt
+RUN pip3 install -r src/arduino-bridge/requirements.txt
+
 COPY rover src/rover
 COPY arduino-bridge src/arduino-bridge
 COPY 99-usb-serial.rules /etc/udev/rules.d/
 ENV UDEV=1
 
-RUN pip3 install -r src/arduino-bridge/requirements.txt
+RUN /bin/bash -c "source /opt/ros/eloquent/setup.bash; colcon build"
 
-RUN /bin/bash -c "source /opt/ros/dashing/setup.bash; colcon build"
-
-CMD /bin/bash -c "source /opt/ros/dashing/setup.bash; source ./install/setup.bash; ROS_DOMAIN_ID=45 ros2 launch rover rover.py"
+CMD /bin/bash -c "source /opt/ros/eloquent/setup.bash; source ./install/setup.bash; ROS_DOMAIN_ID=45 ros2 launch rover rover.py"
