@@ -19,7 +19,7 @@ def generate_launch_description():
         package='slam_toolbox',
         node_executable='async_slam_toolbox_node',
         name='slam_toolbox',
-#        emulate_tty=True,
+        emulate_tty=True,
         output='screen'
     )
 
@@ -31,7 +31,7 @@ def generate_launch_description():
         node_executable='rplidar_node',
         name='rplidar',
         node_name='rplidar',
-#        emulate_tty=True,
+        emulate_tty=True,
         output='screen'
     )    
 
@@ -39,11 +39,20 @@ def generate_launch_description():
         package='arduino_bridge',
         node_executable='arduino_bridge',
         name='arduino_bridge',
-#        emulate_tty=True,
+        emulate_tty=True,
         output='screen'
-    ) 
+    )
+
+    base_to_scan = Node(
+            package='tf2_ros',
+            node_executable='static_transform_publisher',
+            node_name='base_to_scan',
+            arguments=['0', '0', '0', '0', '0', '0',
+                       'base_link', 'scan'],
+            output='screen')
 
     return LaunchDescription([
         lidar,
-        arduino_bridge
+        arduino_bridge,
+        base_to_scan
     ])

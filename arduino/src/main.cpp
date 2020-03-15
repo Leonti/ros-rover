@@ -34,7 +34,7 @@ double speed_req_right = 0;
 double speed_act_right = 0;
 double speed_adj_right = 0;
 
-const double MAX_SPEED = 330; // Max speed in m/s
+const double MAX_SPEED = 330; // Max speed in mm/s
 const double MIN_SPEED = 20;
 const double PWM_TO_SPEED_RATIO = 0.4;
 
@@ -106,7 +106,7 @@ void processMessage() {
       float linear = Serial.parseFloat();
       float angular = Serial.parseFloat();
 
-      Serial.println(F("OK"));
+   //   Serial.println(F("OK"));
       onTwistCommand(linear, angular);
     } else {
       Serial.read();
@@ -171,6 +171,8 @@ void loop() {
       rightMotor.drive(PWM_rightMotor);
     }
 
+    Serial.print(loopDuration);
+    Serial.print(F(","));
     Serial.print(speed_act_left, 4);
     Serial.print(F(","));
     Serial.print(speed_act_right, 4);
