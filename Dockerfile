@@ -25,6 +25,7 @@ RUN git clone https://github.com/Leonti/rplidar_ros.git src/rplidar_ros \
 
 
 COPY arduino-bridge/requirements.txt src/arduino-bridge/requirements.txt
+RUN pip3 install Cython
 RUN pip3 install -r src/arduino-bridge/requirements.txt
 
 COPY rover src/rover
