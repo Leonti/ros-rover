@@ -112,7 +112,7 @@ def serial_reader(node, ser):
 
           odom_pub.publish(odom)          
         except Exception as ex:
-          node.get_logger().error(ex)
+          node.get_logger().error("Exception: {0}".format(ex))
 
       time.sleep(.001)
 
