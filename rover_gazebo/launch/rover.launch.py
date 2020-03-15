@@ -39,6 +39,7 @@ def generate_launch_description():
         #prefix=['gdb -ex=r --args'],
 #        prefix=['valgrind'],
         name='slam_toolbox',
+        emulate_tty=True,
         output='screen'
     )
 

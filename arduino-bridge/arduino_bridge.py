@@ -48,11 +48,11 @@ def serial_reader(node, ser):
     while True:
       bytesToRead = ser.inWaiting()
       if bytesToRead > 0:
-        
-        line = str(ser.readline(), 'ascii')
-        parts = line.split(",")
-
+      
         try:
+          line = str(ser.readline(), 'ascii')
+          parts = line.split(",")
+
           dt = int(parts[0]) / 1000.0
           v_left = float(parts[1]) / 1000.0
           v_right = float(parts[2]) / 1000.0
