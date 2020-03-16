@@ -6,7 +6,7 @@ from rclpy.node import Node
 from rclpy.qos import qos_profile_services_default
 import tf2_ros
 from math import sin, cos, atan2, isclose
-from transformations import quaternion_from_euler
+from transformations_new import quaternion_from_euler
 
 import serial
 import threading
@@ -71,7 +71,7 @@ def serial_reader(node, ser):
 #          if not isclose(v_left, 0, rel_tol=1e-6):
 #            node.get_logger().info('VLeft: {:f} VRight {:f} X: {:f} Y: {:f} TH: {:f}, VTH: {:f}'.format(v_left, v_right, delta_x, delta_y, delta_th, vth))
 
-          odom_quat = quaternion_from_euler(th, 0, 0, axes='sxyz')
+          odom_quat = quaternion_from_euler(0, 0, th)
           current_time = node.get_clock().now().to_msg()
           
           t = TransformStamped()
@@ -101,8 +101,8 @@ def serial_reader(node, ser):
           odom.pose.pose.orientation.z = odom_quat[2]
           odom.pose.pose.orientation.w = odom_quat[3]
 
-#          if not isclose(v_left, 0, rel_tol=1e-6):
-#            print('orientation: x: {:f}, y: {:f}, z: {:f}, w: {:f}'.format(odom_quat[0], odom_quat[1], odom_quat[2], odom_quat[3]))
+          if not isclose(v_left, 0, rel_tol=1e-6):
+            print('orientation: x: {:f}, y: {:f}, z: {:f}, w: {:f}'.format(odom_quat[0], odom_quat[1], odom_quat[2], odom_quat[3]))
     
           # set the velocity
           odom.child_frame_id = "base_link"

@@ -7,7 +7,8 @@ setup(
     version='0.0.1',
     packages=[],
     py_modules=[
-        'arduino_bridge'
+        'arduino_bridge',
+        'transformations_new'
     ],
     data_files=[
         ('share/ament_index/resource_index/packages',
