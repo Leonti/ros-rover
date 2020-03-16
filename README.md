@@ -41,9 +41,9 @@ ROS_DOMAIN_ID=45 ros2 launch rover_gazebo rover.launch.py world:=rover_room.worl
 3. Launch Navigation  
 
 ```bash
-cd . ~/navigation2_ws
+cd ~/navigation2_ws
 . ~/navigation2_ws/install/setup.bash  
-ros2 launch nav2_bringup nav2_navigation_launch.py
+ROS_DOMAIN_ID=45 ros2 launch nav2_bringup navigation_launch.py
 ```
 
 ### Teleop

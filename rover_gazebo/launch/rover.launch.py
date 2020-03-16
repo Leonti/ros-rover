@@ -14,6 +14,19 @@ def generate_launch_description():
 
     pkg_gazebo_ros = get_package_share_directory('gazebo_ros')
     pkg_rover_gazebo = get_package_share_directory('rover_gazebo')
+    pkg_nav2_bringup = get_package_share_directory('nav2_bringup')
+
+    navigation = IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(os.path.join(pkg_nav2_bringup, 'launch', 'navigation_launch.py')),
+            launch_arguments={'namespace': '',
+                              'use_sim_time': 'false',
+                              'autostart': 'true',
+                              'params_file': get_package_share_directory("rover") + '/config/nav2_params.yaml',
+                              'bt_xml_file': os.path.join(
+            get_package_share_directory('nav2_bt_navigator'),
+            'behavior_trees', 'navigate_w_replanning_and_recovery.xml'),
+                              'use_lifecycle_mgr': 'false',
+                              'map_subscribe_transient_local': 'true'}.items())
 
     # Gazebo launch
     gazebo = IncludeLaunchDescription(
@@ -52,5 +65,6 @@ def generate_launch_description():
                               description='Open RViz.'),
 #        gazebo,
         rviz,
-        slam
+        slam,
+        navigation
     ])
