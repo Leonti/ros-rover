@@ -119,7 +119,7 @@ def serial_reader(node, ser):
 def main(args=None):
   rclpy.init(args=args)
 
-  with serial.Serial('/dev/ttyARDUINO') as ser:
+  with serial.Serial('/dev/serial0') as ser:
     twist_subscriber = TwistSubscriber(ser)
     t = threading.Thread(target=serial_reader, args=(twist_subscriber, ser,))
     t.start()
