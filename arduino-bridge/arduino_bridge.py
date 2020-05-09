@@ -51,6 +51,7 @@ def serial_reader(node, ser):
       
         try:
           line = str(ser.readline(), 'ascii')
+          node.get_logger().warn(line) # remove later
           parts = line.split(",")
 
           dt = int(parts[0]) / 1000.0
@@ -114,7 +115,7 @@ def serial_reader(node, ser):
         except Exception as ex:
           node.get_logger().error("Exception: {0}".format(ex))
 
-      time.sleep(.001)
+      #time.sleep(.001)
 
 def main(args=None):
   rclpy.init(args=args)
