@@ -51,7 +51,6 @@ def serial_reader(node, ser):
       
         try:
           line = str(ser.readline(), 'ascii')
-          node.get_logger().warn(line) # remove later
           parts = line.split(",")
 
           dt = int(parts[0]) / 1000.0
