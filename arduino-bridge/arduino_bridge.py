@@ -28,7 +28,7 @@ class TwistSubscriber(Node):
     linear = twist.linear.x
     angular = twist.angular.z
     if twist.linear.y > 0:
-      self.get_logger().error("Can't process 'y' speen - the robot - non-holonomic")
+      self.get_logger().error("Can't process 'y' speed - the robot - non-holonomic")
     self.get_logger().warn('linear: "%f", angular "%f"' % (linear, angular))
     linear_mm_sec = linear * 1000
     self.ser.write('S{:f} {:f} '.format(linear_mm_sec, angular).encode(encoding = 'ascii'))
@@ -44,7 +44,7 @@ def serial_reader(node, ser):
     x = 0.0
     y = 0.0
     th = 0.0
-    WHEEL_BASE = 0.177
+    WHEEL_BASE = 0.175
     while True:
       bytesToRead = ser.inWaiting()
       if bytesToRead > 0:
@@ -119,7 +119,7 @@ def serial_reader(node, ser):
 def main(args=None):
   rclpy.init(args=args)
 
-  with serial.Serial('/dev/serial0') as ser:
+  with serial.Serial('/dev/serial0', baudrate=115200) as ser:
     twist_subscriber = TwistSubscriber(ser)
     t = threading.Thread(target=serial_reader, args=(twist_subscriber, ser,))
     t.start()

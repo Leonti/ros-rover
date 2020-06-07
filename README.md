@@ -51,7 +51,7 @@ Install `teleop_twist_keyboard` https://github.com/ros2/teleop_twist_keyboard an
 use `from rclpy.qos import qos_profile_services_default`, and run with 
 
 ```bash
-        ros2 run teleop_twist_keyboard teleop_twist_keyboard
+ROS_DOMAIN_ID=45 ros2 run teleop_twist_keyboard teleop_twist_keyboard
 ```
 
 To debug TF:  
@@ -63,7 +63,7 @@ ros2 run tf2_tools view_frames.py
 To start with real lidar:
 
 ```bash
-ros2 launch rover rover.py
+ROS_DOMAIN_ID=45 ros2 launch rover rover.py
 ```
 
 To build a single package:
