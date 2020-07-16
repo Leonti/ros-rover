@@ -6,7 +6,7 @@ RUN apt-get clean && apt-get update && apt-get install -y locales \
 
 ENV LANG en_US.UTF-8
 
-RUN apt update && sudo apt install -y curl gnupg2 lsb-release 
+RUN apt update && sudo apt install -y curl gnupg2 lsb-release software-properties-common
 
 RUN dpkg --print-architecture
 RUN apt-key adv --fetch-keys https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc \
