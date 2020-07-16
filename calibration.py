@@ -51,7 +51,7 @@ def serial_writer(ser):
     linear_mm_sec = linear_speed * 1000
     #if linear_speed > 0:
       #print('S{:f} {:f} '.format(linear_mm_sec, 0))
-    ser.write('R{:f} {:f} '.format(0.61, 0.62).encode(encoding = 'ascii'))
+#    ser.write('R{:f} {:f} '.format(0.61, 0.62).encode(encoding = 'ascii'))
     ser.write('S{:f} {:f} '.format(linear_mm_sec, 0).encode(encoding = 'ascii'))
     ser.flush()
     time.sleep(0.5)
@@ -60,26 +60,26 @@ def controller(ser):
   global readings
   global is_recording
   global linear_speed
-  for kp in [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]:
-    for kd in [0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07]:
-      for i in [1, 2]:
-        ki = 0.0
-        ser.write('T{:f} {:f} {:f} '.format(kp, kd, ki).encode(encoding = 'ascii'))
-        readings = []
-        linear_speed = 0.15
-        time.sleep(2)
-        is_recording = True
-        time.sleep(15)
-        linear_speed = 0
-        is_recording = False
-        left_readings = [d['ticks_left'] for d in readings]
-        right_readings = [d['ticks_right'] for d in readings]
-      #  pp.pprint(left_readings)
-        left_std_dev = statistics.stdev(left_readings)
-        right_std_dev = statistics.stdev(right_readings)
-        left_mean = statistics.mean(left_readings)
-        right_mean = statistics.mean(right_readings)  
-        print('KP: {:f}, KD: {:f}, STDDEV left: {:f}, right: {:f}. MEAN left: {:f}, right: {:f}'.format(kp, kd, left_std_dev, right_std_dev, left_mean, right_mean))
+#  for kp in [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]:
+#    for kd in [0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07]:
+#      for i in [1, 2]:
+#  ki = 0.0
+#  ser.write('T{:f} {:f} {:f} '.format(kp, kd, ki).encode(encoding = 'ascii'))
+  readings = []
+  linear_speed = 0.082393
+  time.sleep(2)
+  is_recording = True
+  time.sleep(15)
+  linear_speed = 0
+  is_recording = False
+  left_readings = [d['ticks_left'] for d in readings]
+  right_readings = [d['ticks_right'] for d in readings]
+#  pp.pprint(left_readings)
+  left_std_dev = statistics.stdev(left_readings)
+  right_std_dev = statistics.stdev(right_readings)
+  left_mean = statistics.mean(left_readings)
+  right_mean = statistics.mean(right_readings)  
+  print('KP: {:f}, KD: {:f}, STDDEV left: {:f}, right: {:f}. MEAN left: {:f}, right: {:f}'.format(kp, kd, left_std_dev, right_std_dev, left_mean, right_mean))
 
 def main(args=None):
   print("Starting...") # 256000

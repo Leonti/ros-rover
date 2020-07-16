@@ -67,15 +67,15 @@ void encoderRightMotor() { encoder_right_count++; }
 
 void onTwistCommand(float linear_mm_s, float angular_r_s) {
   noCommLoops = 0;
-  double new_speed_req_left = linear_mm_s - angular_r_s * (WHEELBASE / 2);
-  double new_speed_req_right = linear_mm_s + angular_r_s * (WHEELBASE / 2);
+  speed_req_left = linear_mm_s - angular_r_s * (WHEELBASE / 2);
+  speed_req_right = linear_mm_s + angular_r_s * (WHEELBASE / 2);
 
-  if (new_speed_req_left != speed_req_left || new_speed_req_right != speed_req_right) {
-    speed_changed = true;
-  }
+ // if (new_speed_req_left != speed_req_left || new_speed_req_right != speed_req_right) {
+  //  speed_changed = true;
+ // }
 
-  speed_req_left = new_speed_req_left;
-  speed_req_right = new_speed_req_right;
+ // speed_req_left = new_speed_req_left;
+ // speed_req_right = new_speed_req_right;
 }
 
 void setup() {
@@ -109,9 +109,9 @@ void processMessage() {
       float linear = Serial.parseFloat();
       float angular = Serial.parseFloat();
 
-   //   Serial.println(F("OK"));
+//      Serial.println(F("OK"));
       onTwistCommand(linear, angular);
-    } else if (c == 'R') {
+    } /*else if (c == 'R') {
       Serial.read();
       PWM_TO_SPEED_RATIO_RIGHT = Serial.parseFloat();
       PWM_TO_SPEED_RATIO_LEFT = Serial.parseFloat();
@@ -125,7 +125,7 @@ void processMessage() {
       PID_leftMotor.SetTunings(kp, ki, kd);
       PID_rightMotor.SetTunings(kp, ki, kd);
       Serial.println("Tunings updated!");
-    } else {
+    }*/ else {
       Serial.read();
     }
   }
@@ -141,7 +141,7 @@ void loop() {
   currentMs = millis();
   loopDuration = currentMs - lastMs;
 
-  if (loopDuration >= LOOPTIME || speed_changed) {
+  if (loopDuration >= LOOPTIME) {
 
     if (noCommLoops >= 10) {
       speed_req_left = 0;

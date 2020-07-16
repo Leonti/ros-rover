@@ -1,4 +1,4 @@
-FROM balenalib/raspberrypi3-ubuntu:bionic-build-20200221
+FROM balenalib/raspberrypi3-ubuntu:focal-build
 
 RUN apt-get clean && apt-get update && apt-get install -y locales \
   && locale-gen en_US en_US.UTF-8 \
@@ -11,8 +11,8 @@ RUN apt update && sudo apt install -y curl gnupg2 lsb-release
 RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add - \
   && echo "deb [arch=armhf] http://packages.ros.org/ros2/ubuntu `lsb_release -cs` main" > /etc/apt/sources.list.d/ros2-latest.list \
   && apt update \
-  && DEBIAN_FRONTEND=noninteractive apt install -y ros-eloquent-ros-base \
-  ros-eloquent-navigation2 ros-eloquent-nav2-bringup
+  && DEBIAN_FRONTEND=noninteractive apt install -y ros-foxy-ros-base
+#  ros-eloquent-navigation2 ros-eloquent-nav2-bringup
 
 RUN apt update && sudo apt install -y git python3-colcon-common-extensions python3-pip
 
