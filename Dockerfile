@@ -1,4 +1,4 @@
-FROM balenalib/raspberrypi3-64-ubuntu:build
+FROM balenalib/generic-aarch64-ubuntu:focal-build-20200518
 
 RUN apt-get clean && apt-get update && apt-get install -y locales \
   && locale-gen en_US en_US.UTF-8 \
