@@ -33,6 +33,6 @@ COPY arduino-bridge src/arduino-bridge
 COPY 99-usb-serial.rules /etc/udev/rules.d/
 ENV UDEV=1
 
-RUN /bin/bash -c "source /opt/ros/eloquent/setup.bash; colcon build"
+RUN /bin/bash -c "source /opt/ros/foxy/setup.bash; colcon build"
 
-CMD /bin/bash -c "source /opt/ros/eloquent/setup.bash; source ./install/setup.bash; ROS_DOMAIN_ID=45 ros2 launch rover rover.py"
+CMD /bin/bash -c "source /opt/ros/foxy/setup.bash; source ./install/setup.bash; ROS_DOMAIN_ID=45 ros2 launch rover rover.py"
