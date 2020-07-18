@@ -45,7 +45,7 @@ def generate_launch_description():
     base_to_scan = Node(
             package='tf2_ros',
             executable='static_transform_publisher',
-            node='base_to_scan',
+            name='base_to_scan',
             arguments=['0', '0', '0', '0', '0', '0',
                        'base_link', 'scan'],
             output='screen')
