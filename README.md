@@ -26,10 +26,9 @@ Install instructions for Ubuntu 19.10.
 1. Setup environment variables:
 ```bash
 . /usr/share/gazebo/setup.sh
-. ~/ros2_eloquent/install/setup.bash
+. /opt/ros/foxy/setup.bash
 . ~/development/ros2_tutorial/install/setup.bash
 . ~/slam_ws/install/setup.bash
-. ~/navigation2_ws/install/setup.bash
 ```
 
 2. Launch rover (will launch Slam Toolbox as well):
@@ -64,6 +63,12 @@ To start with real lidar:
 
 ```bash
 ROS_DOMAIN_ID=45 ros2 launch rover rover.py
+```
+
+To run QUI for topics and services:  
+
+```bash
+ROS_DOMAIN_ID=45 rqt
 ```
 
 To build a single package:
