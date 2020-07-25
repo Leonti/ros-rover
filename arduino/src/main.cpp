@@ -2,7 +2,6 @@
 #include <Wire.h>
 #include <PID_v1.h>
 #include <SparkFun_TB6612.h>
-#include <RunningAverage.h>
 
 #define AIN1 9
 #define BIN1 11
@@ -21,7 +20,7 @@ Motor leftMotor = Motor(BIN1, BIN2, PWMB, offsetB, STBY);
 unsigned long lastMs = 0;
 unsigned long currentMs = 0;
 const int TICKS_PER_REVOLUTION = 515;
-const double RADIUS = 33.5;
+const double WHEEL_CIRCUMFERENCE_MM = 210.49; // 33.5 * PI * 2
 const double WHEELBASE = 175;
 
 double speed_req = 0;
@@ -46,7 +45,7 @@ int PWM_leftMotor = 0;
 int PWM_rightMotor = 0;
 
 //double kp = 0.7, ki = 0, kd = 0.03;
-double kp = 0.5, ki = 0.0, kd = 0.05;
+double kp = 0.3, ki = 0.0, kd = 0.05;
 
 PID PID_leftMotor(&speed_act_left, &speed_adj_left, &speed_req_left, kp, ki, kd, DIRECT);
 PID PID_rightMotor(&speed_act_right, &speed_adj_right, &speed_req_right, kp, ki, kd, DIRECT);
@@ -149,23 +148,34 @@ void loop() {
     }
 
     lastMs = currentMs;
+    noInterrupts();
+    int current_encoder_left_count = encoder_left_count;
+    int current_encoder_right_count = encoder_right_count;
+    encoder_left_count = 0;
+    encoder_right_count = 0;
+    interrupts();
 
     PID_leftMotor.SetSampleTime(loopDuration);
     PID_rightMotor.SetSampleTime(loopDuration);
+    float time_sec = ((float) loopDuration) / 1000.0;
 
-    if (encoder_left_count < 5) {
+    if (current_encoder_left_count < 5) {
       speed_act_left = 0;
     } else {
-      speed_act_left = (((float) encoder_left_count / TICKS_PER_REVOLUTION) * 2 * PI) * (1000 / loopDuration) * RADIUS;
+      float distance_mm = (float(current_encoder_left_count) / float(TICKS_PER_REVOLUTION)) * WHEEL_CIRCUMFERENCE_MM;
+      speed_act_left = (distance_mm / time_sec) * 0.975;
+      
       if (speed_req_left < 0) {
         speed_act_left = -speed_act_left;
       }
     }
 
-    if (encoder_right_count < 5) {
+    if (current_encoder_right_count < 5) {
       speed_act_right = 0;
     } else {
-      speed_act_right = (((float) encoder_right_count / TICKS_PER_REVOLUTION) * 2 * PI) * (1000 / loopDuration) * RADIUS;
+      float distance_mm = (float(current_encoder_right_count) / float(TICKS_PER_REVOLUTION)) * WHEEL_CIRCUMFERENCE_MM;
+      speed_act_right = (distance_mm / time_sec) * 0.975;
+
       if (speed_req_right < 0) {
         speed_act_right = -speed_act_right;
       }
@@ -201,16 +211,13 @@ void loop() {
     Serial.print(F(","));
     Serial.print(speed_adj_right, 4);
     Serial.print(F(","));
-    Serial.print(encoder_left_count, 4);
+    Serial.print(current_encoder_left_count);
     Serial.print(F(","));
-    Serial.print(encoder_right_count, 4);
+    Serial.print(current_encoder_right_count);
     Serial.print(F(","));
     Serial.print(PWM_leftMotor);
     Serial.print(F(","));
     Serial.println(PWM_rightMotor);
-
-    encoder_left_count = 0;
-    encoder_right_count = 0;
 
     noCommLoops++;
     if (noCommLoops == 65535) {

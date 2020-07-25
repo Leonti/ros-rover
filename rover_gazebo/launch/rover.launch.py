@@ -43,17 +43,43 @@ def generate_launch_description():
         condition=IfCondition(LaunchConfiguration('rviz'))
     )
 
-    slam = Node(
+    slam_localization = Node(
         parameters=[
-            get_package_share_directory("rover") + '/config/slam.yaml'
+            get_package_share_directory("rover_gazebo") + '/config/slam_localization.yaml',
+            {'use_sim_time': True}
         ],
         package='slam_toolbox',
-        node_executable='sync_slam_toolbox_node',
-        #prefix=['gdb -ex=r --args'],
-#        prefix=['valgrind'],
+        node_executable='localization_slam_toolbox_node',
         name='slam_toolbox',
         emulate_tty=True,
         output='screen'
+    )
+
+    slam_mapping = Node(
+        parameters=[
+            get_package_share_directory("rover_gazebo") + '/config/slam_mapping.yaml'
+        ],
+        package='slam_toolbox',
+        node_executable='sync_slam_toolbox_node',
+        name='slam_toolbox',
+        emulate_tty=True,
+        output='screen'
+    )
+
+    bumper2pc = Node(
+        package="bumper2pc",
+        executable="bumper2pc",
+        name="bumper2pc",
+        output="screen",
+        emulate_tty=True,
+        parameters=[
+            {   "pointcloud_radius": 0.35,
+                "pointcloud_height": 0.01,
+                "side_point_angle": 1.3,
+                "base_link_frame": "base_link",
+                'use_sim_time': True
+            }
+        ]
     )
 
     return LaunchDescription([
@@ -63,8 +89,10 @@ def generate_launch_description():
           description='SDF world file'),
         DeclareLaunchArgument('rviz', default_value='true',
                               description='Open RViz.'),
-#        gazebo,
+        gazebo,
         rviz,
-        slam,
-        navigation
+#        slam_mapping,
+        bumper2pc,
+        slam_localization,
+        navigation,
     ])

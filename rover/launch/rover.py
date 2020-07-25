@@ -12,17 +12,6 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
 
-    slam = Node(
-        parameters=[
-            get_package_share_directory("rover") + '/config/slam.yaml'
-        ],
-        package='slam_toolbox',
-        executable='async_slam_toolbox_node',
-        name='slam_toolbox',
-        emulate_tty=True,
-        output='screen'
-    )
-
     lidar = Node(
         parameters=[   
             get_package_share_directory("rover") + '/config/rplidar.yaml'

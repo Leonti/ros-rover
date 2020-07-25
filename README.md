@@ -56,7 +56,11 @@ ROS_DOMAIN_ID=45 ros2 run teleop_twist_keyboard teleop_twist_keyboard
 To debug TF:  
 
 ```bash
-ros2 run tf2_tools view_frames.py
+ROS_DOMAIN_ID=45 ros2 run tf2_tools view_frames.py
+```
+
+```bash
+ROS_DOMAIN_ID=45 ros2 run tf2_ros tf2_echo map odom
 ```
 
 To start with real lidar:
