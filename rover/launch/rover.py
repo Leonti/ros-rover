@@ -48,8 +48,8 @@ def generate_launch_description():
             output='screen')
 
     return LaunchDescription([
-#        lidar,
-#        arduino_bridge,
+        lidar,
+        arduino_bridge,
         rpi_bumper,
-#        base_to_scan
+        base_to_scan
     ])
