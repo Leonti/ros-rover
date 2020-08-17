@@ -31,6 +31,14 @@ def generate_launch_description():
         output='screen'
     )
 
+    rpi_bumper = Node(
+        package='rpi_bumper',
+        executable='rpi_bumper',
+        name='rpi_bumper',
+        emulate_tty=True,
+        output='screen'
+    )
+
     base_to_scan = Node(
             package='tf2_ros',
             executable='static_transform_publisher',
@@ -40,7 +48,8 @@ def generate_launch_description():
             output='screen')
 
     return LaunchDescription([
-        lidar,
-        arduino_bridge,
-        base_to_scan
+#        lidar,
+#        arduino_bridge,
+        rpi_bumper,
+#        base_to_scan
     ])

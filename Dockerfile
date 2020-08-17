@@ -28,8 +28,12 @@ COPY arduino-bridge/requirements.txt src/arduino-bridge/requirements.txt
 RUN pip3 install Cython
 RUN pip3 install -r src/arduino-bridge/requirements.txt
 
+COPY rpi-bumper/requirements.txt src/rpi-bumper/requirements.txt
+RUN pip3 install -r src/rpi-bumper/requirements.txt
+
 COPY rover src/rover
 COPY arduino-bridge src/arduino-bridge
+COPY rpi-bumper src/rpi-bumper
 COPY 99-usb-serial.rules /etc/udev/rules.d/
 ENV UDEV=1
 

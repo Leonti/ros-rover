@@ -92,6 +92,8 @@ export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/home/leonti/turtlebot_ws/src/turtle
 ros2 launch nav2_bringup nav2_tb3_simulation_launch.py
 ```
 
+GPIO 0 - bumper left
+GPIO 2 - bumper right
 
 ## Credits
 This project is based on the awesome "Dolly" project: https://github.com/chapulina/dolly
