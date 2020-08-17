@@ -23,6 +23,9 @@ RUN git clone https://github.com/Leonti/rplidar_ros.git src/rplidar_ros \
   && git checkout dashing \
   && cd ../../
 
+RUN git clone https://github.com/Leonti/ros-bumper-interfaces.git src/bumper_interfaces \
+  && cd src/bumper_interfaces \
+  && cd ../../
 
 COPY arduino-bridge/requirements.txt src/arduino-bridge/requirements.txt
 RUN pip3 install Cython
