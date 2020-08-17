@@ -10,7 +10,6 @@ GPIO.setmode(GPIO.BCM)
 import serial
 import threading
 import time
-from functools import partial
 
 class ButtonHandler(threading.Thread):
   def __init__(self, pin, func, bouncetime=200):
@@ -50,12 +49,12 @@ class BumperPublisher(Node):
         Bumper, '/bumper', qos_profile=qos_profile_services_default)
 
     GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-    left_bumper_cb = ButtonHandler(17, partial(self.on_left_bumper, self), bouncetime=60)
+    left_bumper_cb = ButtonHandler(17, self.on_left_bumper, bouncetime=60)
     left_bumper_cb.start()
     GPIO.add_event_detect(17, GPIO.BOTH, callback=left_bumper_cb)
 
     GPIO.setup(27, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-    right_bumper_cb = ButtonHandler(27, partial(self.on_right_bumper, self), bouncetime=60)
+    right_bumper_cb = ButtonHandler(27, self.on_right_bumper, bouncetime=60)
     right_bumper_cb.start()
     GPIO.add_event_detect(27, GPIO.BOTH, callback=right_bumper_cb)
 
