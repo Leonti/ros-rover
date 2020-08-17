@@ -7,8 +7,6 @@ import threading
 import RPi.GPIO as GPIO  
 GPIO.setmode(GPIO.BCM)
 
-GPIO.setup(2, GPIO.IN, pull_up_down=GPIO.PUD_UP) # right
-
 import serial
 import threading
 import time
@@ -53,10 +51,10 @@ class BumperPublisher(Node):
     left_bumper_cb.start()
     GPIO.add_event_detect(0, GPIO.BOTH, callback=left_bumper_cb)
 
-    GPIO.setup(1, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-    right_bumper_cb = ButtonHandler(1, self.on_right_bumper, bouncetime=60)
+    GPIO.setup(2, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+    right_bumper_cb = ButtonHandler(2, self.on_right_bumper, bouncetime=60)
     right_bumper_cb.start()
-    GPIO.add_event_detect(1, GPIO.BOTH, callback=right_bumper_cb)
+    GPIO.add_event_detect(2, GPIO.BOTH, callback=right_bumper_cb)
 
   def on_left_bumper(self):
     msg = Bumper()
