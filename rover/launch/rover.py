@@ -50,6 +50,6 @@ def generate_launch_description():
     return LaunchDescription([
         lidar,
         arduino_bridge,
-        rpi_bumper,
+#        rpi_bumper,
         base_to_scan
     ])
