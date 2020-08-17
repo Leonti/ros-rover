@@ -46,15 +46,15 @@ class BumperPublisher(Node):
     self.publisher_ = self.create_publisher(
         Bumper, '/bumper', qos_profile=qos_profile_services_default)
 
-    GPIO.setup(0, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-    left_bumper_cb = ButtonHandler(0, self.on_left_bumper, bouncetime=60)
+    GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+    left_bumper_cb = ButtonHandler(17, self.on_left_bumper, bouncetime=60)
     left_bumper_cb.start()
-    GPIO.add_event_detect(0, GPIO.BOTH, callback=left_bumper_cb)
+    GPIO.add_event_detect(17, GPIO.BOTH, callback=left_bumper_cb)
 
-    GPIO.setup(2, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-    right_bumper_cb = ButtonHandler(2, self.on_right_bumper, bouncetime=60)
+    GPIO.setup(27, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+    right_bumper_cb = ButtonHandler(27, self.on_right_bumper, bouncetime=60)
     right_bumper_cb.start()
-    GPIO.add_event_detect(2, GPIO.BOTH, callback=right_bumper_cb)
+    GPIO.add_event_detect(27, GPIO.BOTH, callback=right_bumper_cb)
 
   def on_left_bumper(self):
     msg = Bumper()
