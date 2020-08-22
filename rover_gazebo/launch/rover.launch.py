@@ -45,8 +45,8 @@ def generate_launch_description():
 
     slam_localization = Node(
         parameters=[
-            get_package_share_directory("rover_gazebo") + '/config/slam_localization.yaml',
-            {'use_sim_time': True}
+            get_package_share_directory("rover_gazebo") + '/config/slam_localization.yaml'#,
+         #   {'use_sim_time': True}
         ],
         package='slam_toolbox',
         node_executable='localization_slam_toolbox_node',
@@ -76,8 +76,8 @@ def generate_launch_description():
             {   "pointcloud_radius": 0.35,
                 "pointcloud_height": 0.01,
                 "side_point_angle": 1.3,
-                "base_link_frame": "base_link",
-                'use_sim_time': True
+                "base_link_frame": "base_link"#,
+#                'use_sim_time': True
             }
         ]
     )
@@ -89,7 +89,7 @@ def generate_launch_description():
           description='SDF world file'),
         DeclareLaunchArgument('rviz', default_value='true',
                               description='Open RViz.'),
-        gazebo,
+#        gazebo,
         rviz,
 #        slam_mapping,
         bumper2pc,

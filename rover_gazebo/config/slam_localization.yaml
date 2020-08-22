@@ -15,9 +15,10 @@ slam_toolbox:
     mode: localization
 
     # if you'd like to start localizing on bringup in a map and pose
-    #map_file_name: /home/leonti/development/ros2_tutorial/serialized_room
-    map_file_name: /home/leonti/development/ros2_tutorial/gazebo_map_serialized
-    map_start_pose: [0.0, 0.0, 0.0]
+    map_file_name: /home/leonti/development/ros2_tutorial/serialized_room
+    map_start_pose: [-0.84, -0.36, 0.0]
+    #map_file_name: /home/leonti/development/ros2_tutorial/gazebo_map_serialized
+    #map_start_pose: [0.0, 0.0, 0.0]
 
     debug_logging: false
     throttle_scans: 1
