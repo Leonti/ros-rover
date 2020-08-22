@@ -92,8 +92,12 @@ export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/home/leonti/turtlebot_ws/src/turtle
 ros2 launch nav2_bringup nav2_tb3_simulation_launch.py
 ```
 
-GPIO17 - bumper left
-GPIO27 - bumper right
+## Electronics
+Here is the schematic:
+![Schematic](https://raw.githubusercontent.com/Leonti/ros-rover/master/wiring_schem.png)
+
+Or in breadboard format:
+![Schematic Breadboard](https://raw.githubusercontent.com/Leonti/ros-rover/master/wiring_bb.png)
 
 ## Credits
 This project is based on the awesome "Dolly" project: https://github.com/chapulina/dolly
