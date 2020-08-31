@@ -7,6 +7,7 @@ from rclpy.qos import qos_profile_services_default
 import tf2_ros
 from math import sin, cos, atan2, isclose
 from transformations_new import quaternion_from_euler
+from bumper_interfaces.msg import Bumper
 
 import serial
 import threading
@@ -22,17 +23,45 @@ class TwistSubscriber(Node):
       self.listener_callback,
       10)
     self.subscription  # prevent unused variable warning
+
+    self.bumper_subscription = self.create_subscription(
+      Bumper,
+      '/bumper',
+      self.bumper_callback,
+      10)
+    self.bumper_subscription  # prevent unused variable warning
+
     self.ser = ser
+    self.handling_bumper = False
 
   def listener_callback(self, twist):
     linear = twist.linear.x
     angular = twist.angular.z
     if twist.linear.y > 0:
       self.get_logger().error("Can't process 'y' speed - the robot - non-holonomic")
-    self.get_logger().warn('linear: "%f", angular "%f"' % (linear, angular))
-    linear_mm_sec = linear * 1000
-    self.ser.write('S{:f} {:f} '.format(linear_mm_sec, angular).encode(encoding = 'ascii'))
-    self.ser.flush()
+
+    if self.handling_bumper:
+      self.get_logger().warn('Ignoring twist events, bumper handling is in progress')
+    else:  
+      self.get_logger().warn('linear: "%f", angular "%f"' % (linear, angular))
+      linear_mm_sec = linear * 1000
+      self.ser.write('S{:f} {:f} '.format(linear_mm_sec, angular).encode(encoding = 'ascii'))
+      self.ser.flush()
+
+  def bumper_callback(self, bumper):
+    if bumper.left is True or bumper.right is True:
+      self.get_logger().warn('Bumper event')
+      self.handling_bumper = True
+
+      for x in range(10):  
+        linear_mm_sec = 80
+        angular = 0
+        self.ser.write('S{:f} {:f} '.format(linear_mm_sec, angular).encode(encoding = 'ascii'))
+        time.sleep(0.1)
+
+      self.ser.write('S{:f} {:f} '.format(0, 0).encode(encoding = 'ascii'))
+      time.sleep(3)
+      self.handling_bumper = False
 
 def serial_reader(node, ser):
     node.get_logger().warn("Reading serial")
