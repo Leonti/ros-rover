@@ -54,7 +54,7 @@ class TwistSubscriber(Node):
       self.handling_bumper = True
 
       for x in range(10):  
-        linear_mm_sec = 80
+        linear_mm_sec = -80
         angular = 0
         self.ser.write('S{:f} {:f} '.format(linear_mm_sec, angular).encode(encoding = 'ascii'))
         time.sleep(0.1)
