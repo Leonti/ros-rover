@@ -48,7 +48,7 @@ def generate_launch_description():
             output='screen')
 
     return LaunchDescription([
-        lidar,
+#        lidar,
         pico_bridge,
         rpi_bumper,
         base_to_scan
