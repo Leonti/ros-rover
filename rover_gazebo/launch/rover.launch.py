@@ -21,7 +21,7 @@ def generate_launch_description():
             launch_arguments={'namespace': '',
                               'use_sim_time': 'false',
                               'autostart': 'true',
-                              'params_file': get_package_share_directory("rover") + '/config/nav2_params.yaml',
+                              'params_file': get_package_share_directory("rover_gazebo") + '/config/nav2_params.yaml',
                               'bt_xml_file': os.path.join(
             get_package_share_directory('nav2_bt_navigator'),
             'behavior_trees', 'navigate_w_replanning_and_recovery.xml'),
@@ -35,10 +35,26 @@ def generate_launch_description():
         )
     )
 
+    pico_bridge = Node(
+        package='pico_bridge',
+        executable='pico_bridge',
+        name='pico_bridge',
+        emulate_tty=True,
+        output='screen'
+    )
+
+    hardware_control = Node(
+        package='hardware_control',
+        executable='hardware_control',
+        name='hardware_control',
+        emulate_tty=True,
+        output='screen'
+    )
+
     # RViz
     rviz = Node(
         package='rviz2',
-        node_executable='rviz2',
+        executable='rviz2',
         arguments=['-d', os.path.join(pkg_rover_gazebo, 'rviz', 'rover_gazebo.rviz')],
         condition=IfCondition(LaunchConfiguration('rviz'))
     )
@@ -49,7 +65,7 @@ def generate_launch_description():
          #   {'use_sim_time': True}
         ],
         package='slam_toolbox',
-        node_executable='localization_slam_toolbox_node',
+        executable='localization_slam_toolbox_node',
         name='slam_toolbox',
         emulate_tty=True,
         output='screen'
@@ -60,7 +76,7 @@ def generate_launch_description():
             get_package_share_directory("rover_gazebo") + '/config/slam_mapping.yaml'
         ],
         package='slam_toolbox',
-        node_executable='sync_slam_toolbox_node',
+        executable='sync_slam_toolbox_node',
         name='slam_toolbox',
         emulate_tty=True,
         output='screen'
@@ -73,9 +89,9 @@ def generate_launch_description():
         output="screen",
         emulate_tty=True,
         parameters=[
-            {   "pointcloud_radius": 0.35,
+            {   "pointcloud_radius": 0.25,
                 "pointcloud_height": 0.01,
-                "side_point_angle": 1.3,
+                "side_point_angle": 0.32,
                 "base_link_frame": "base_link"#,
 #                'use_sim_time': True
             }
@@ -90,9 +106,11 @@ def generate_launch_description():
         DeclareLaunchArgument('rviz', default_value='true',
                               description='Open RViz.'),
 #        gazebo,
-        rviz,
+ #       rviz,
 #        slam_mapping,
-        bumper2pc,
-        slam_localization,
-        navigation,
+        pico_bridge,
+        hardware_control,
+#        bumper2pc,
+#        slam_localization,
+#        navigation,
     ])

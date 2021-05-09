@@ -27,15 +27,16 @@ RUN git clone https://github.com/Leonti/ros-bumper-interfaces.git src/bumper_int
   && cd src/bumper_interfaces \
   && cd ../../
 
-COPY arduino-bridge/requirements.txt src/arduino-bridge/requirements.txt
+COPY pico_bridge/requirements.txt src/pico_bridge/requirements.txt
 RUN pip3 install Cython
-RUN pip3 install -r src/arduino-bridge/requirements.txt
+RUN pip3 install -r src/pico_bridge/requirements.txt
 
 COPY rpi-bumper/requirements.txt src/rpi-bumper/requirements.txt
 RUN pip3 install -r src/rpi-bumper/requirements.txt
 
 COPY rover src/rover
-COPY arduino-bridge src/arduino-bridge
+COPY pico_bridge src/pico_bridge
+COPY hardware_control src/hardware_control
 COPY rpi-bumper src/rpi-bumper
 COPY 99-usb-serial.rules /etc/udev/rules.d/
 ENV UDEV=1

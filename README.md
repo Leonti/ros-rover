@@ -81,6 +81,12 @@ To build a single package:
 colcon build --symlink-install --packages-select rplidar_ros
 ```
 
+To publish to a topic:
+
+```bash
+ROS_DOMAIN_ID=45 ros2 topic pub -1 /pico_command std_msgs/msg/String "{data: 'C0:Some message'}"
+```
+
 ### Navigation tutorial
 
 ```bash

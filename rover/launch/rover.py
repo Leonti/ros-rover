@@ -23,10 +23,10 @@ def generate_launch_description():
         output='screen'
     )    
 
-    arduino_bridge = Node(
-        package='arduino_bridge',
-        executable='arduino_bridge',
-        name='arduino_bridge',
+    pico_bridge = Node(
+        package='pico_bridge',
+        executable='pico_bridge',
+        name='pico_bridge',
         emulate_tty=True,
         output='screen'
     )
@@ -49,7 +49,7 @@ def generate_launch_description():
 
     return LaunchDescription([
         lidar,
-        arduino_bridge,
+        pico_bridge,
         rpi_bumper,
         base_to_scan
     ])

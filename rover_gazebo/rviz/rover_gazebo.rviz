@@ -7,6 +7,8 @@ Panels:
         - /Global Options1
         - /TF1
         - /TF1/Frames1
+        - /CostMap1
+        - /LocalCostMap1
         - /Odometry1
       Splitter Ratio: 0.5
     Tree Height: 974
@@ -85,13 +87,11 @@ Visualization Manager:
         All Enabled: true
         base_link:
           Value: true
-        left_wheel:
-          Value: true
         map:
           Value: true
         odom:
           Value: true
-        right_wheel:
+        scan:
           Value: true
       Marker Scale: 1
       Name: TF
@@ -102,9 +102,7 @@ Visualization Manager:
         map:
           odom:
             base_link:
-              left_wheel:
-                {}
-              right_wheel:
+              scan:
                 {}
       Update Interval: 0
       Value: true
@@ -130,7 +128,7 @@ Visualization Manager:
       Value: true
     - Alpha: 0.699999988079071
       Class: rviz_default_plugins/Map
-      Color Scheme: map
+      Color Scheme: costmap
       Draw Behind: false
       Enabled: true
       Name: CostMap
@@ -228,7 +226,7 @@ Visualization Manager:
       Value: true
     - Alpha: 0.699999988079071
       Class: rviz_default_plugins/Map
-      Color Scheme: map
+      Color Scheme: costmap
       Draw Behind: false
       Enabled: true
       Name: LocalCostMap

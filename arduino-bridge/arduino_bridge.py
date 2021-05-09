@@ -49,7 +49,7 @@ class TwistSubscriber(Node):
       self.ser.flush()
 
   def bumper_callback(self, bumper):
-    if bumper.left is True or bumper.right is True:
+    if not self.handling_bumper and (bumper.left is True or bumper.right is True):
       self.get_logger().warn('Bumper event')
       self.handling_bumper = True
 
