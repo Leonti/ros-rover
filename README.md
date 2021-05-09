@@ -1,8 +1,8 @@
 ## Install
 
-Install instructions for Ubuntu 19.10.
+Install instructions for Ubuntu 20.04.
 
-1. Install ros2 from source [here](https://index.ros.org/doc/ros2/Installation/Linux-Install-Debians/).
+1. Install ROS 2 [Foxy Fitzroy](https://index.ros.org/doc/ros2/Installation/Foxy/).
 
 2. Install dependencies:
 `gazebo_ros_pkgs`: https://github.com/ros-simulation/gazebo_ros_pkgs
@@ -18,7 +18,7 @@ Install instructions for Ubuntu 19.10.
 2. Build and install:
 
         cd ~/ws
-        . ~/ros2_eloquent/install/setup.bash
+        . /opt/ros/foxy/setup.bash
         colcon build --symlink-install
 
 ## Run
@@ -90,7 +90,6 @@ ROS_DOMAIN_ID=45 ros2 topic pub -1 /pico_command std_msgs/msg/String "{data: 'C0
 ### Navigation tutorial
 
 ```bash
-cd ~/navigation2_ws/
 source ../turtlebot_ws/install/setup.bash
 source install/setup.bash
 . /usr/share/gazebo/setup.sh
@@ -98,8 +97,12 @@ export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/home/leonti/turtlebot_ws/src/turtle
 ros2 launch nav2_bringup nav2_tb3_simulation_launch.py
 ```
 
-GPIO17 - bumper left
-GPIO27 - bumper right
+## Electronics
+Here is the schematic:
+![Schematic](https://raw.githubusercontent.com/Leonti/ros-rover/master/wiring_schem.png)
+
+Or in breadboard format:
+![Schematic Breadboard](https://raw.githubusercontent.com/Leonti/ros-rover/master/wiring_bb.png)
 
 ## Credits
 This project is based on the awesome "Dolly" project: https://github.com/chapulina/dolly
