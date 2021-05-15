@@ -108,7 +108,7 @@ def generate_launch_description():
 #        gazebo,
  #       rviz,
 #        slam_mapping,
-        pico_bridge,
+#        pico_bridge,
         hardware_control,
 #        bumper2pc,
 #        slam_localization,

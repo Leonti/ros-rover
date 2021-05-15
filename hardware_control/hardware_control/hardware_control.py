@@ -37,7 +37,7 @@ class TwistSubscriber(Node):
 #    self.get_logger().warn('linear: "%f", angular "%f"' % (linear, angular))
     linear_mm_sec = linear * 1000
 
-    WHEELBASE = 175
+    WHEELBASE = 176
     right_wheel_speed_mm_sec = linear_mm_sec - angular * (WHEELBASE / 2)
     left_wheel_speed_mm_sec = linear_mm_sec + angular * (WHEELBASE / 2)
 

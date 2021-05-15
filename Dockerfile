@@ -20,7 +20,7 @@ WORKDIR /ws
 RUN mkdir src
 RUN git clone https://github.com/Leonti/rplidar_ros.git src/rplidar_ros \
   && cd src/rplidar_ros \
-  && git checkout dashing \
+  && git checkout rpi_control \
   && cd ../../
 
 RUN git clone https://github.com/Leonti/ros-bumper-interfaces.git src/bumper_interfaces \
