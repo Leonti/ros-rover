@@ -1,25 +1,21 @@
 FROM balenalib/generic-aarch64-ubuntu:focal-build-20200518
 
-RUN dpkg --print-architecture
-RUN apt-key adv --fetch-keys https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc \
-  && apt-add-repository http://packages.ros.org/ros2/ubuntu \
-  && DEBIAN_FRONTEND=noninteractive apt install -y ros-foxy-ros-base
-
-RUN apt-get update && apt-get install -y locales \
+RUN apt-get clean && apt-get update && apt-get install -y locales \
   curl gnupg2 lsb-release software-properties-common \
-  git python3-colcon-common-extensions python3-pip \
-  && apt-get clean && rm -f /var/lib/apt/lists/*_* \
   && locale-gen en_US en_US.UTF-8 \
   && update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 
 ENV LANG en_US.UTF-8
 
-#RUN apt update && sudo apt install -y curl gnupg2 lsb-release software-properties-common
+# RUN apt update && sudo apt install -y curl gnupg2 lsb-release software-properties-common
 
-
+RUN dpkg --print-architecture
+RUN apt-key adv --fetch-keys https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc \
+  && apt-add-repository http://packages.ros.org/ros2/ubuntu \
+  && DEBIAN_FRONTEND=noninteractive apt install -y ros-foxy-ros-base
 #  ros-eloquent-navigation2 ros-eloquent-nav2-bringup
 
-#RUN apt update && sudo apt install -y git python3-colcon-common-extensions python3-pip
+RUN apt update && sudo apt install -y git python3-colcon-common-extensions python3-pip
 
 WORKDIR /ws
 RUN mkdir src
