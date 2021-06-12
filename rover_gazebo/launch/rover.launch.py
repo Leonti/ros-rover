@@ -28,6 +28,15 @@ def generate_launch_description():
                               'use_lifecycle_mgr': 'false',
                               'map_subscribe_transient_local': 'true'}.items())
 
+    localization = IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(os.path.join(pkg_nav2_bringup, 'launch', 'localization_launch.py')),
+            launch_arguments={'namespace': '',
+                              'use_sim_time': 'false',
+                              'autostart': 'true',
+                              'params_file': get_package_share_directory("rover_gazebo") + '/config/nav2_params.yaml',
+                              'map': '/home/leonti/development/ros2_tutorial/src/ros-rover/maps/garfield.yaml',
+            }.items())
+
     # Gazebo launch
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -52,12 +61,6 @@ def generate_launch_description():
     )
 
     # RViz
-    rviz = Node(
-        package='rviz2',
-        executable='rviz2',
-        arguments=['-d', os.path.join(pkg_rover_gazebo, 'rviz', 'rover_gazebo.rviz')],
-        condition=IfCondition(LaunchConfiguration('rviz'))
-    )
 
     slam_localization = Node(
         parameters=[
@@ -106,11 +109,11 @@ def generate_launch_description():
         DeclareLaunchArgument('rviz', default_value='true',
                               description='Open RViz.'),
 #        gazebo,
-        rviz,
 #        slam_mapping,
 #        pico_bridge,
         hardware_control,
 #        bumper2pc,
-        slam_localization,
-        navigation,
+#        slam_localization,
+        localization,
+#        navigation,
     ])

@@ -88,7 +88,7 @@ def odometry_publisher(node):
     vy = 0.0
     vth = 0.0
     WHEEL_BASE = WHEELBASE / 1000.0
-    INTERVAL_SEC = 0.02
+    INTERVAL_SEC = 0.005
     while node.is_running:
         current_time = time.time()
         if last_msg_received is not None and current_time - last_msg_received >= 1.5:
@@ -130,10 +130,10 @@ def odometry_publisher(node):
     #            node.get_logger().info('VLeft: {:f} VRight {:f} X: {:f} Y: {:f} TH: {:f}, VTH: {:f}'.format(v_left, v_right, delta_x, delta_y, delta_th, vth))
 
         odom_quat = quaternion_from_euler(0, 0, th)
-        current_time = node.get_clock().now().to_msg()
+        transform_time = node.get_clock().now().to_msg()
         
         t = TransformStamped()
-        t.header.stamp = current_time
+        t.header.stamp = transform_time
         t.header.frame_id = "odom"
         t.child_frame_id = "base_link"
         t.transform.translation.x = x
@@ -144,11 +144,9 @@ def odometry_publisher(node):
         t.transform.rotation.z = odom_quat[2]
         t.transform.rotation.w = odom_quat[3]
 
-        odom_broadcaster.sendTransform(t)
-
         odom = Odometry()
         odom.header.frame_id = "odom"
-        odom.header.stamp = current_time
+        odom.header.stamp = transform_time
 
         # set the position
         odom.pose.pose.position.x = x
@@ -159,16 +157,14 @@ def odometry_publisher(node):
         odom.pose.pose.orientation.z = odom_quat[2]
         odom.pose.pose.orientation.w = odom_quat[3]
 
-        # if not isclose(v_left, 0, rel_tol=1e-6):
-            # print('orientation: x: {:f}, y: {:f}, z: {:f}, w: {:f}'.format(odom_quat[0], odom_quat[1], odom_quat[2], odom_quat[3]))
-
         # set the velocity
         odom.child_frame_id = "base_link"
         odom.twist.twist.linear.x = vx
         odom.twist.twist.linear.y = vy
         odom.twist.twist.angular.z = vth
 
-        odom_pub.publish(odom) 
+        odom_pub.publish(odom)
+        odom_broadcaster.sendTransform(t)
 
         time.sleep(INTERVAL_SEC)
 

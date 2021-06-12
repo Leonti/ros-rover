@@ -1,12 +1,12 @@
 amcl:
   ros__parameters:
-    use_sim_time: True
+    use_sim_time: False
     alpha1: 0.2
     alpha2: 0.2
     alpha3: 0.2
     alpha4: 0.2
     alpha5: 0.2
-    base_frame_id: "base_footprint"
+    base_frame_id: "base_link"
     beam_skip_distance: 0.5
     beam_skip_error_threshold: 0.9
     beam_skip_threshold: 0.3
@@ -88,13 +88,6 @@ controller_server:
     min_y_velocity_threshold: 0.5
     min_theta_velocity_threshold: 0.001
     controller_plugins: ["FollowPath"]
-    progress_checker_plugin: "progress_checker"
-
-    # Progress checker parameters
-    progress_checker:
-      plugin: "nav2_controller::SimpleProgressChecker"
-      required_movement_radius: 0.5
-      movement_time_allowance: 20.0
 
     # DWB parameters
     FollowPath:
@@ -107,7 +100,7 @@ controller_server:
       max_vel_theta: 1.0
       min_speed_xy: 0.10
       max_speed_xy: 0.20
-      min_speed_theta: 0.3 # 0.3 for real robot, 0.0 for sim
+      min_speed_theta: 0.0 # FIXME: 0.3 for real robot
       # Add high threshold velocity for turtlebot 3 issue.
       # https://github.com/ROBOTIS-GIT/turtlebot3_simulations/issues/75
       acc_lim_x: 2.5
@@ -122,7 +115,7 @@ controller_server:
       sim_time: 1.7
       linear_granularity: 0.05
       angular_granularity: 0.025
-      transform_tolerance: 1.2
+      transform_tolerance: 0.2
       xy_goal_tolerance: 0.30 # FIXME: 0.10 for real robot
       yaw_goal_tolerance: 0.05 # FIXME: 0.02 for real robot
       trans_stopped_velocity: 0.25
@@ -147,8 +140,8 @@ controller_server_rclcpp_node:
 local_costmap:
   local_costmap:
     ros__parameters:
-      update_frequency: 20.0
-      publish_frequency: 10.0
+      update_frequency: 5.0
+      publish_frequency: 2.0
       global_frame: odom
       robot_base_frame: base_link
       use_sim_time: True
@@ -157,45 +150,26 @@ local_costmap:
       height: 3
       resolution: 0.05
       robot_radius: 0.22
-      plugins: ["obstacle_layer", "inflation_layer"] # "voxel_layer",
+      plugins: ["obstacle_layer", "inflation_layer"]
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
-        inflation_radius: 0.05
-        cost_scaling_factor: 5.0
+        cost_scaling_factor: 3.0
       obstacle_layer:
         plugin: "nav2_costmap_2d::ObstacleLayer"
         enabled: True
-        observation_sources: scan bumper_sensor
+        observation_sources: scan pointcloud
         scan:
           topic: /scan
           max_obstacle_height: 2.0
           clearing: True
           marking: True
           data_type: "LaserScan"
-        bumper_sensor:
+        pointcloud:
           topic: /bumper_point_cloud
           max_obstacle_height: 2.0
-          observation_persistence: 0.5
-          clearing: False
+          clearing: True
           marking: True
-          data_type: "PointCloud2"            
-
-      # voxel_layer:
-      #   plugin: "nav2_costmap_2d::VoxelLayer"
-      #   enabled: True
-      #   publish_voxel_map: True
-      #   origin_z: 0.0
-      #   z_resolution: 0.05
-      #   z_voxels: 16
-      #   max_obstacle_height: 2.0
-      #   mark_threshold: 0
-      #   observation_sources: pointcloud
-      #   pointcloud:
-      #     topic: /bumper_point_cloud
-      #     max_obstacle_height: 2.0
-      #     clearing: False
-      #     marking: True
-      #     data_type: "PointCloud2"
+          data_type: "PointCloud2"  
       static_layer:
         map_subscribe_transient_local: True
       always_send_full_costmap: True
@@ -216,39 +190,33 @@ global_costmap:
       use_sim_time: True
       robot_radius: 0.22
       resolution: 0.05
-      plugins: ["static_layer", "obstacle_layer", "inflation_layer"] # , "voxel_layer"
+      plugins: ["static_layer", "obstacle_layer", "voxel_layer", "inflation_layer"]
       obstacle_layer:
         plugin: "nav2_costmap_2d::ObstacleLayer"
         enabled: True
-        observation_sources: scan bumper_sensor
+        observation_sources: scan
         scan:
           topic: /scan
           max_obstacle_height: 2.0
           clearing: True
           marking: True
           data_type: "LaserScan"
-        bumper_sensor:
-          topic: /bumper_point_cloud
-#          max_obstacle_height: 2.0
-          clearing: False
+      voxel_layer:
+        plugin: "nav2_costmap_2d::VoxelLayer"
+        enabled: True
+        publish_voxel_map: True
+        origin_z: 0.0
+        z_resolution: 0.05
+        z_voxels: 16
+        max_obstacle_height: 2.0
+        mark_threshold: 0
+        observation_sources: pointcloud
+        pointcloud:
+          topic: /intel_realsense_r200_depth/points
+          max_obstacle_height: 2.0
+          clearing: True
           marking: True
-          data_type: "PointCloud2" 
-      # voxel_layer:
-      #   plugin: "nav2_costmap_2d::VoxelLayer"
-      #   enabled: True
-      #   publish_voxel_map: True
-      #   origin_z: 0.0
-      #   z_resolution: 0.05
-      #   z_voxels: 16
-      #   max_obstacle_height: 2.0
-      #   mark_threshold: 0
-      #   observation_sources: pointcloud
-      #   pointcloud:
-      #     topic: /intel_realsense_r200_depth/points
-      #     max_obstacle_height: 2.0
-      #     clearing: True
-      #     marking: True
-      #     data_type: "PointCloud2"
+          data_type: "PointCloud2"
       static_layer:
         plugin: "nav2_costmap_2d::StaticLayer"
         map_subscribe_transient_local: True
@@ -295,7 +263,7 @@ recoveries_server:
     costmap_topic: local_costmap/costmap_raw
     footprint_topic: local_costmap/published_footprint
     cycle_frequency: 10.0
-    recovery_plugins: ["spin", "backup", "wait"]
+    recovery_plugins: ["backup", "wait", "spin"]
     spin:
       plugin: "nav2_recoveries/Spin"
     backup:

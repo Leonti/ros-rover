@@ -11,17 +11,7 @@ from launch_ros.actions import Node
 
 
 def generate_launch_description():
-
-    lidar = Node(
-        parameters=[   
-            get_package_share_directory("rover") + '/config/rplidar.yaml'
-        ],
-        package='rplidar_ros',
-        executable='rplidar_node',
-        name='rplidar',
-        emulate_tty=True,
-        output='screen'
-    )    
+    pkg_rover_gazebo = get_package_share_directory('rover_gazebo')
 
     pico_bridge = Node(
         package='pico_bridge',
@@ -31,15 +21,6 @@ def generate_launch_description():
         output='screen'
     )
 
-    base_to_scan = Node(
-            package='tf2_ros',
-            executable='static_transform_publisher',
-            name='base_to_scan',
-            arguments=['0', '0', '0', '0', '0', '0',
-                       'base_link', 'scan'],
-            output='screen')
-
-    # temporary to investigate tf2 issues
     hardware_control = Node(
         package='hardware_control',
         executable='hardware_control',
@@ -48,9 +29,20 @@ def generate_launch_description():
         output='screen'
     )
 
+    # RViz
+    rviz = Node(
+        package='rviz2',
+        executable='rviz2',
+        arguments=['-d', os.path.join(pkg_rover_gazebo, 'rviz', 'rover_gazebo.rviz')],
+        condition=IfCondition(LaunchConfiguration('rviz'))
+    )
+
     return LaunchDescription([
-        lidar,
-        pico_bridge,
-        hardware_control,
-        base_to_scan
+        DeclareLaunchArgument(
+          'world',
+          default_value=[os.path.join(pkg_rover_gazebo, 'worlds', 'rover_empty.world'), ''],
+          description='SDF world file'),
+        DeclareLaunchArgument('rviz', default_value='true',
+                              description='Open RViz.'),
+        rviz,
     ])

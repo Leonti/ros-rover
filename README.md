@@ -97,6 +97,12 @@ export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/home/leonti/turtlebot_ws/src/turtle
 ros2 launch nav2_bringup nav2_tb3_simulation_launch.py
 ```
 
+### Saivng a map
+
+```bash
+ROS_DOMAIN_ID=45 ros2 run nav2_map_server map_saver_cli -f garfield
+```
+
 ## Electronics
 Here is the schematic:
 ![Schematic](https://raw.githubusercontent.com/Leonti/ros-rover/master/wiring_schem.png)
