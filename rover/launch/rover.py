@@ -51,6 +51,6 @@ def generate_launch_description():
     return LaunchDescription([
         lidar,
         pico_bridge,
-        hardware_control,
+    #    hardware_control,
         base_to_scan
     ])
