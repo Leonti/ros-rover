@@ -1,4 +1,4 @@
-FROM balenalib/generic-aarch64-ubuntu:focal-build-20200518
+FROM balenalib/generic-aarch64-ubuntu:focal-build-20210602
 
 RUN apt-get clean && apt-get update && apt-get install -y locales \
   curl gnupg2 lsb-release software-properties-common \

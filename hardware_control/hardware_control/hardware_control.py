@@ -91,7 +91,7 @@ def odometry_publisher(node):
     INTERVAL_SEC = 0.005
     while node.is_running:
         current_time = time.time()
-        if last_msg_received is not None and current_time - last_msg_received >= 1.5:
+        if last_msg_received is not None and current_time - last_msg_received >= 2.5:
           last_twist = None
 
         history = [] if last_twist is None else [last_twist]
