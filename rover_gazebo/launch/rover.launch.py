@@ -114,6 +114,6 @@ def generate_launch_description():
         hardware_control,
 #        bumper2pc,
 #        slam_localization,
-#        localization,
-#        navigation,
+        localization,
+        navigation,
     ])
